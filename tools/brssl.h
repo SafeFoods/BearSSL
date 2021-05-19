@@ -31,6 +31,8 @@
 #include <stdint.h>
 
 #include "bearssl.h"
+#include "system_config.h"
+#include "system/debug/sys_debug.h"
 
 /*
  * malloc() wrapper:
