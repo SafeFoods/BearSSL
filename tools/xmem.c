@@ -35,7 +35,7 @@ xmalloc(size_t len)
     }
     buf = malloc(len);
     if (buf == NULL) {
-        SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "ERROR: could not allocate %lu byte(s)\n",
+        SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "ERROR: could not allocate %lu byte(s)\n",
                 (unsigned long)len);
         SYS_DEBUG_BreakPoint();
         exit(EXIT_FAILURE);
@@ -91,7 +91,7 @@ xpkeydup(const br_x509_pkey *pk)
             pk2->key.ec.qlen = pk->key.ec.qlen;
             break;
         default:
-            SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "Unknown public key type: %u\n",
+            SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "Unknown public key type: %u\n",
                     (unsigned)pk->key_type);
             SYS_DEBUG_BreakPoint();
             exit(EXIT_FAILURE);
@@ -113,7 +113,7 @@ xfreepkey(br_x509_pkey *pk)
                 xfree(pk->key.ec.q);
                 break;
             default:
-                SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "Unknown public key type: %u\n",
+                SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "Unknown public key type: %u\n",
                         (unsigned)pk->key_type);
                 SYS_DEBUG_BreakPoint();
                 exit(EXIT_FAILURE);

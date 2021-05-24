@@ -806,14 +806,14 @@ parse_size(const char *s)
         }
         d = hexval(c);
         if (d < 0 || d >= radix) {
-            SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "ERROR: not a valid digit: '%c'\n", c);
+            SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "ERROR: not a valid digit: '%c'\n", c);
             return (size_t)-1;
         }
         z = acc * (size_t)radix + (size_t)d;
         if (z < (size_t)d || (z / (size_t)radix) != acc
 			|| z == (size_t)-1)
         {
-            SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "ERROR: value too large: %s\n", s);
+            SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "ERROR: value too large: %s\n", s);
             return (size_t)-1;
         }
         acc = z;
@@ -889,7 +889,7 @@ parse_version(const char *name, size_t len)
 
         ref = protocol_versions[u].name;
         if (ref == NULL) {
-            SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "ERROR: unrecognised protocol"
+            SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "ERROR: unrecognised protocol"
                     " version name: '%s'\n", name);
             return 0;
         }
@@ -920,10 +920,10 @@ parse_hash_functions(const char *arg)
 
             ref = hash_functions[u].name;
             if (ref == 0) {
-                SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "ERROR: unrecognised"
+                SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "ERROR: unrecognised"
                         " hash function name: '");
-                SYS_DEBUG_MESSAGE(SYS_ERROR_DEBUG, name);
-                SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "'\n");
+                SYS_DEBUG_MESSAGE(SYS_ERROR_ERROR, "BearSSL", name);
+                SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "'\n");
                 return 0;
             }
 			if (eqstr_chunk(ref, strlen(ref), name, len)) {
@@ -938,7 +938,7 @@ parse_hash_functions(const char *arg)
         }
     }
     if (r == 0) {
-        SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "ERROR: no hash function name provided\n");
+        SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "ERROR: no hash function name provided\n");
     }
     return r;
 }
@@ -963,10 +963,10 @@ parse_suites(const char *arg, size_t *num)
 
             ref = cipher_suites[u].name;
             if (ref == NULL) {
-                SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "ERROR: unrecognised"
+                SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "ERROR: unrecognised"
                         " cipher suite '");
-                SYS_DEBUG_MESSAGE(SYS_ERROR_DEBUG, name);
-                SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "'\n");
+                SYS_DEBUG_MESSAGE(SYS_ERROR_ERROR, "BearSSL", name);
+                SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "'\n");
                 return 0;
             }
 			if (eqstr_chunk(ref, strlen(ref), name, len)) {
@@ -976,7 +976,7 @@ parse_suites(const char *arg, size_t *num)
         }
     }
     if (VEC_LEN(suites) == 0) {
-        SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "ERROR: no cipher suite provided\n");
+        SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "ERROR: no cipher suite provided\n");
     }
     r = VEC_TOARRAY(suites);
     *num = VEC_LEN(suites);

@@ -44,12 +44,12 @@ decode_key(const unsigned char *buf, size_t len)
 	if (err != 0) {
 		const char *errname, *errmsg;
 
-		SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "ERROR (decoding): err=%d\n", err);
+		SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "ERROR (decoding): err=%d\n", err);
 		errname = find_error_name(err, &errmsg);
 		if (errname != NULL) {
-			SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "  %s: %s\n", errname, errmsg);
+			SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "  %s: %s\n", errname, errmsg);
 		} else {
-			SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "  (unknown)\n");
+			SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "  (unknown)\n");
 		}
 		return NULL;
 	}
@@ -84,7 +84,7 @@ decode_key(const unsigned char *buf, size_t len)
 		break;
 
 	default:
-		SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "Unknown key type: %d\n",
+		SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "Unknown key type: %d\n",
 			br_skey_decoder_key_type(&dc));
 		sk = NULL;
 		break;
@@ -130,7 +130,7 @@ read_private_key(const char *fname)
 				goto deckey_exit;
 			}
 		}
-		SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "ERROR: no private key in file '%s'\n", fname);
+		SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "ERROR: no private key in file '%s'\n", fname);
 		goto deckey_exit;
 	}
 

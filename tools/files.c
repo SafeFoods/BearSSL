@@ -222,7 +222,7 @@ decode_pem(const void *src, size_t len, size_t *num)
             case BR_PEM_ERROR:
                 xfree(po.name);
                 VEC_CLEAR(bv);
-                SYS_DEBUG_PRINT(SYS_ERROR_DEBUG,
+                SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL",
                         "ERROR: invalid PEM encoding\n");
                 VEC_CLEAREXT(pem_list, &free_pem_object_contents);
                 return NULL;
@@ -242,7 +242,7 @@ decode_pem(const void *src, size_t len, size_t *num)
         }
     }
     if (inobj) {
-        SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "ERROR: unfinished PEM object\n");
+        SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "ERROR: unfinished PEM object\n");
         xfree(po.name);
         VEC_CLEAR(bv);
         VEC_CLEAREXT(pem_list, &free_pem_object_contents);
