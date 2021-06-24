@@ -43,8 +43,7 @@ read_file(const char *fname, size_t *len)
     SYS_FS_HANDLE f = SYS_FS_FileOpen(path, (SYS_FS_FILE_OPEN_READ));
     if (f == SYS_FS_HANDLE_INVALID)
     {
-        SYS_DEBUG_PRINT(SYS_ERROR_DEBUG,
-                "ERROR: could not open file '%s' for reading\n", fname);
+        SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "Could not open file '%s' for reading", fname);
         return NULL;
     }
     for (;;)
@@ -59,9 +58,7 @@ read_file(const char *fname, size_t *len)
 
             if (SYS_FS_FileError(f))
             {
-                SYS_DEBUG_PRINT(SYS_ERROR_DEBUG,
-                        "ERROR: read error on file '%s'\n",
-                        fname);
+                SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "Read error on file '%s'", fname);
                 SYS_FS_FileClose(f);
                 return NULL;
             }
@@ -86,8 +83,7 @@ write_file(const char *fname, const void *data, size_t len)
     SYS_FS_HANDLE f = SYS_FS_FileOpen(path, (SYS_FS_FILE_OPEN_WRITE));
     if (f == SYS_FS_HANDLE_INVALID)
     {
-        SYS_DEBUG_PRINT(SYS_ERROR_DEBUG,
-                "ERROR: could not open file '%s' for reading\n", fname);
+        SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "Could not open file '%s' for reading", fname);
         return -1;
     }
     buf = data;
@@ -98,9 +94,7 @@ write_file(const char *fname, const void *data, size_t len)
         wlen = SYS_FS_FileWrite(f, buf, len);
         if (wlen == 0)
         {
-            SYS_DEBUG_PRINT(SYS_ERROR_DEBUG,
-                    "ERROR: could not write all bytes to '%s'\n",
-                    fname);
+            SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "Could not write all bytes to '%s'", fname);
             SYS_FS_FileClose(f);
             return -1;
         }
@@ -109,7 +103,7 @@ write_file(const char *fname, const void *data, size_t len)
     }
     if (SYS_FS_FileError(f))
     {
-        SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "ERROR: write error on file '%s'\n", fname);
+        SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "Write error on file '%s'", fname);
         SYS_FS_FileClose(f);
         return -1;
     }
@@ -222,8 +216,7 @@ decode_pem(const void *src, size_t len, size_t *num)
             case BR_PEM_ERROR:
                 xfree(po.name);
                 VEC_CLEAR(bv);
-                SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL",
-                        "ERROR: invalid PEM encoding\n");
+                SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "Invalid PEM encoding\n");
                 VEC_CLEAREXT(pem_list, &free_pem_object_contents);
                 return NULL;
         }
@@ -242,7 +235,7 @@ decode_pem(const void *src, size_t len, size_t *num)
         }
     }
     if (inobj) {
-        SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "ERROR: unfinished PEM object\n");
+        SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "Unfinished PEM object\n");
         xfree(po.name);
         VEC_CLEAR(bv);
         VEC_CLEAREXT(pem_list, &free_pem_object_contents);
@@ -315,7 +308,7 @@ read_certificates(const char *fname, size_t *num)
     xfree(pos);
 
     if (VEC_LEN(cert_list) == 0) {
-        SYS_DEBUG_PRINT(SYS_ERROR_DEBUG, "ERROR: no certificate in file '%s'\n", fname);
+        SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "No certificate in file '%s'", fname);
         return NULL;
     }
     *num = VEC_LEN(cert_list);
