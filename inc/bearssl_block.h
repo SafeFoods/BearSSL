@@ -715,6 +715,19 @@ typedef struct {
 #endif
 } br_aes_big_cbcenc_keys;
 
+typedef struct {
+    const br_block_cbcenc_class *vtable;
+    uint8_t key[32];
+    uint8_t keylen;
+} br_aes_hw_cbcenc_keys;
+
+typedef struct {
+    const br_block_cbcdec_class *vtable;
+    uint8_t key[32];
+    uint8_t keylen;
+} br_aes_hw_cbcdec_keys;
+
+
 /**
  * \brief Context for AES subkeys (`aes_big` implementation, CBC decryption).
  *
@@ -766,6 +779,10 @@ typedef struct {
  * \brief Class instance for AES CBC encryption (`aes_big` implementation).
  */
 extern const br_block_cbcenc_class br_aes_big_cbcenc_vtable;
+
+extern const br_block_cbcenc_class br_aes_hw_cbcenc_vtable;
+
+extern const br_block_cbcdec_class br_aes_hw_cbcdec_vtable;
 
 /**
  * \brief Class instance for AES CBC decryption (`aes_big` implementation).

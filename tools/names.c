@@ -423,6 +423,8 @@ static const struct {
     const void *impl;
 } algo_names[] = {
     /* Block ciphers */
+	{ "aes_hw_cbcenc",     "hw",          &br_aes_hw_cbcenc_vtable },
+	{ "aes_hw_cbcdec",     "hw",          &br_aes_hw_cbcdec_vtable },
 	{ "aes_big_cbcenc",    "big",         &br_aes_big_cbcenc_vtable },
 	{ "aes_big_cbcdec",    "big",         &br_aes_big_cbcdec_vtable },
 	{ "aes_big_ctr",       "big",         &br_aes_big_ctr_vtable },
