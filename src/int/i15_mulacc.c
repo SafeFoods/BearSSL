@@ -28,6 +28,7 @@
 void
 br_i15_mulacc(uint16_t *d, const uint16_t *a, const uint16_t *b)
 {
+    vTaskDelay(1);
 	size_t alen, blen, u;
 	unsigned dl, dh;
 

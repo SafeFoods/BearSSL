@@ -28,6 +28,7 @@
 void
 br_i15_reduce(uint16_t *x, const uint16_t *a, const uint16_t *m)
 {
+    vTaskDelay(1);
 	uint32_t m_bitlen, a_bitlen;
 	size_t mlen, alen, u;
 

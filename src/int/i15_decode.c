@@ -28,6 +28,7 @@
 void
 br_i15_decode(uint16_t *x, const void *src, size_t len)
 {
+    vTaskDelay(1);
 	const unsigned char *buf;
 	size_t v;
 	uint32_t acc;

@@ -28,6 +28,7 @@
 void
 br_i15_rshift(uint16_t *x, int count)
 {
+    vTaskDelay(1);
 	size_t u, len;
 	unsigned r;
 

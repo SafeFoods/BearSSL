@@ -31,6 +31,7 @@
 static uint32_t
 divrem16(uint32_t x, uint32_t d, uint32_t *r)
 {
+    vTaskDelay(1);
 	int i;
 	uint32_t q;
 
@@ -54,6 +55,7 @@ divrem16(uint32_t x, uint32_t d, uint32_t *r)
 void
 br_i15_muladd_small(uint16_t *x, uint16_t z, const uint16_t *m)
 {
+    vTaskDelay(1);
 	/*
 	 * Constant-time: we accept to leak the exact bit length of the
 	 * modulus m.

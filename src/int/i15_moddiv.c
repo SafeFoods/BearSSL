@@ -123,6 +123,7 @@ static uint32_t
 co_reduce(uint16_t *a, uint16_t *b, size_t len,
 	int32_t pa, int32_t pb, int32_t qa, int32_t qb)
 {
+    vTaskDelay(1);
 	size_t k;
 	int32_t cca, ccb;
 	uint32_t nega, negb;
@@ -184,6 +185,7 @@ co_reduce_mod(uint16_t *a, uint16_t *b, size_t len,
 	int32_t pa, int32_t pb, int32_t qa, int32_t qb,
 	const uint16_t *m, uint16_t m0i)
 {
+    vTaskDelay(1);
 	size_t k;
 	int32_t cca, ccb, fa, fb;
 
@@ -244,6 +246,7 @@ uint32_t
 br_i15_moddiv(uint16_t *x, const uint16_t *y, const uint16_t *m, uint16_t m0i,
 	uint16_t *t)
 {
+    vTaskDelay(1);
 	/*
 	 * Algorithm is an extended binary GCD. We maintain four values
 	 * a, b, u and v, with the following invariants:

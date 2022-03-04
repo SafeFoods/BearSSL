@@ -50,6 +50,7 @@
  *
 #define BR_LOMUL   1
  */
+#define BR_LOMUL   1
 
 /*
  * When BR_SLOW_MUL is enabled, multiplications are assumed to be

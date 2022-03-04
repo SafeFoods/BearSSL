@@ -30,6 +30,7 @@ br_i15_modpow_opt(uint16_t *x,
 	const unsigned char *e, size_t elen,
 	const uint16_t *m, uint16_t m0i, uint16_t *tmp, size_t twlen)
 {
+    vTaskDelay(1);
 	size_t mlen, mwlen;
 	uint16_t *t1, *t2, *base;
 	size_t u, v;

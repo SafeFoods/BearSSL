@@ -28,6 +28,7 @@
 uint32_t
 br_i15_sub(uint16_t *a, const uint16_t *b, uint32_t ctl)
 {
+    vTaskDelay(1);
 	uint32_t cc;
 	size_t u, m;
 

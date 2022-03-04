@@ -29,6 +29,7 @@ void
 br_i15_montymul(uint16_t *d, const uint16_t *x, const uint16_t *y,
 	const uint16_t *m, uint16_t m0i)
 {
+        vTaskDelay(1);
 	size_t len, len4, u, v;
 	uint32_t dh;
 

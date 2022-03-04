@@ -28,6 +28,7 @@
 void
 br_i15_encode(void *dst, size_t len, const uint16_t *x)
 {
+    vTaskDelay(1);
 	unsigned char *buf;
 	size_t u, xlen;
 	uint32_t acc;

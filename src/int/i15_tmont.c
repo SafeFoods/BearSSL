@@ -28,6 +28,7 @@
 void
 br_i15_to_monty(uint16_t *x, const uint16_t *m)
 {
+    vTaskDelay(1);
 	unsigned k;
 
 	for (k = (m[0] + 15) >> 4; k > 0; k --) {

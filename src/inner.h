@@ -30,6 +30,8 @@
 
 #include "config.h"
 #include "bearssl.h"
+#include "FreeRTOS.h"
+#include "task.h"
 
 /*
  * On MSVC, disable the warning about applying unary minus on an

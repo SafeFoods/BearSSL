@@ -29,6 +29,7 @@ void
 br_i15_decode_reduce(uint16_t *x,
 	const void *src, size_t len, const uint16_t *m)
 {
+    vTaskDelay(1);
 	uint32_t m_ebitlen, m_rbitlen;
 	size_t mblen, k;
 	const unsigned char *buf;
