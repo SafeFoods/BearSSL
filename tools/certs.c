@@ -48,8 +48,7 @@ certificate_to_trust_anchor_inner(br_x509_trust_anchor *ta,
 	br_x509_decoder_push(&dc, xc->data, xc->data_len);
 	pk = br_x509_decoder_get_pkey(&dc);
 	if (pk == NULL) {
-		fprintf(stderr, "ERROR: CA decoding failed with error %d\n",
-			br_x509_decoder_last_error(&dc));
+		SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "CA decoding failed with error %d", br_x509_decoder_last_error(&dc));
 		VEC_CLEAR(vdn);
 		return -1;
 	}
@@ -75,7 +74,7 @@ certificate_to_trust_anchor_inner(br_x509_trust_anchor *ta,
 		ta->pkey.key.ec.qlen = pk->key.ec.qlen;
 		break;
 	default:
-		fprintf(stderr, "ERROR: unsupported public key type in CA\n");
+		SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "unsupported public key type in CA");
 		xfree(ta->dn.data);
 		return -1;
 	}
@@ -150,9 +149,7 @@ get_cert_signer_algo(br_x509_certificate *xc)
 	br_x509_decoder_push(&dc, xc->data, xc->data_len);
 	err = br_x509_decoder_last_error(&dc);
 	if (err != 0) {
-		fprintf(stderr,
-			"ERROR: certificate decoding failed with error %d\n",
-			-err);
+		SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "certificate decoding failed with error %d", -err);
 		return 0;
 	}
 	return br_x509_decoder_get_signer_key_type(&dc);
