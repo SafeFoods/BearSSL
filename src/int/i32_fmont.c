@@ -28,6 +28,7 @@
 void
 br_i32_from_monty(uint32_t *x, const uint32_t *m, uint32_t m0i)
 {
+    vTaskDelay(1);
 	size_t len, u, v;
 
 	len = (m[0] + 31) >> 5;

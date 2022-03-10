@@ -28,6 +28,7 @@
 uint32_t
 br_i32_iszero(const uint32_t *x)
 {
+    vTaskDelay(1);
 	uint32_t z;
 	size_t u;
 

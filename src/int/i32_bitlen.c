@@ -28,6 +28,7 @@
 uint32_t
 br_i32_bit_length(uint32_t *x, size_t xlen)
 {
+    vTaskDelay(1);
 	uint32_t tw, twk;
 
 	tw = 0;

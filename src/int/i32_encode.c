@@ -28,6 +28,7 @@
 void
 br_i32_encode(void *dst, size_t len, const uint32_t *x)
 {
+    vTaskDelay(1);
 	unsigned char *buf;
 	size_t k;
 

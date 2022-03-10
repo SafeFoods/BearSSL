@@ -29,6 +29,7 @@ void
 br_i31_montymul(uint32_t *d, const uint32_t *x, const uint32_t *y,
 	const uint32_t *m, uint32_t m0i)
 {
+    vTaskDelay(1);
 	/*
 	 * Each outer loop iteration computes:
 	 *   d <- (d + xu*y + f*m) / 2^31

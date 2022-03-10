@@ -28,6 +28,7 @@
 uint32_t
 br_i32_sub(uint32_t *a, const uint32_t *b, uint32_t ctl)
 {
+    vTaskDelay(1);
 	uint32_t cc;
 	size_t u, m;
 

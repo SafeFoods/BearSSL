@@ -28,6 +28,7 @@
 uint32_t
 br_i31_ninv31(uint32_t x)
 {
+    vTaskDelay(1);
 	uint32_t y;
 
 	y = 2 - x;

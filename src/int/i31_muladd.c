@@ -28,6 +28,7 @@
 void
 br_i31_muladd_small(uint32_t *x, uint32_t z, const uint32_t *m)
 {
+    vTaskDelay(1);
 	uint32_t m_bitlen;
 	unsigned mblr;
 	size_t u, mlen;

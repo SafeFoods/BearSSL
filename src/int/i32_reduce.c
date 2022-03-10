@@ -28,6 +28,7 @@
 void
 br_i32_reduce(uint32_t *x, const uint32_t *a, const uint32_t *m)
 {
+    vTaskDelay(1);
 	uint32_t m_bitlen, a_bitlen;
 	size_t mlen, alen, u;
 

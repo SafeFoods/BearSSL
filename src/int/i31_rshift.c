@@ -28,6 +28,7 @@
 void
 br_i31_rshift(uint32_t *x, int count)
 {
+    vTaskDelay(1);
 	size_t u, len;
 	uint32_t r;
 

@@ -28,6 +28,7 @@
 void
 br_i31_to_monty(uint32_t *x, const uint32_t *m)
 {
+    vTaskDelay(1);
 	uint32_t k;
 
 	for (k = (m[0] + 31) >> 5; k > 0; k --) {

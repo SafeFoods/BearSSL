@@ -28,6 +28,7 @@
 uint32_t
 br_i32_decode_mod(uint32_t *x, const void *src, size_t len, const uint32_t *m)
 {
+    vTaskDelay(1);
 	const unsigned char *buf;
 	uint32_t r;
 	size_t u, v, mlen;

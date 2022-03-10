@@ -28,6 +28,7 @@
 void
 br_i31_mulacc(uint32_t *d, const uint32_t *a, const uint32_t *b)
 {
+    vTaskDelay(1);
 	size_t alen, blen, u;
 	uint32_t dl, dh;
 

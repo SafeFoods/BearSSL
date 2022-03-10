@@ -30,6 +30,7 @@ br_i32_modpow(uint32_t *x,
 	const unsigned char *e, size_t elen,
 	const uint32_t *m, uint32_t m0i, uint32_t *t1, uint32_t *t2)
 {
+    vTaskDelay(1);
 	size_t mlen;
 	uint32_t k;
 

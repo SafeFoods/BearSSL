@@ -42,6 +42,7 @@
 static void
 cond_negate(uint32_t *a, size_t len, uint32_t ctl)
 {
+    vTaskDelay(1);
 	size_t k;
 	uint32_t cc, xm;
 
@@ -70,6 +71,7 @@ cond_negate(uint32_t *a, size_t len, uint32_t ctl)
 static void
 finish_mod(uint32_t *a, size_t len, const uint32_t *m, uint32_t neg)
 {
+    vTaskDelay(1);
 	size_t k;
 	uint32_t cc, xm, ym;
 
@@ -126,6 +128,7 @@ static uint32_t
 co_reduce(uint32_t *a, uint32_t *b, size_t len,
 	int64_t pa, int64_t pb, int64_t qa, int64_t qb)
 {
+    vTaskDelay(1);
 	size_t k;
 	int64_t cca, ccb;
 	uint32_t nega, negb;
@@ -200,6 +203,7 @@ co_reduce_mod(uint32_t *a, uint32_t *b, size_t len,
 	int64_t pa, int64_t pb, int64_t qa, int64_t qb,
 	const uint32_t *m, uint32_t m0i)
 {
+    vTaskDelay(1);
 	size_t k;
 	int64_t cca, ccb;
 	uint32_t fa, fb;
@@ -257,6 +261,7 @@ uint32_t
 br_i31_moddiv(uint32_t *x, const uint32_t *y, const uint32_t *m, uint32_t m0i,
 	uint32_t *t)
 {
+    vTaskDelay(1);
 	/*
 	 * Algorithm is an extended binary GCD. We maintain four values
 	 * a, b, u and v, with the following invariants:

@@ -29,6 +29,7 @@ void
 br_i32_decode_reduce(uint32_t *x,
 	const void *src, size_t len, const uint32_t *m)
 {
+    vTaskDelay(1);
 	uint32_t m_bitlen;
 	size_t mblen, k, q;
 	const unsigned char *buf;
