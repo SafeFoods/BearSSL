@@ -566,4 +566,5 @@ int do_twrch(int argc, char *argv[]);
  */
 int do_impl(int argc, char *argv[]);
 
+uint32_t read_certificate_not_after(const char *fname);
 #endif

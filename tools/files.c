@@ -30,6 +30,8 @@
 
 #include "brssl.h"
 #include "system/fs/sys_fs.h"
+#include "FreeRTOS.h"
+#include "task.h"
 
 /* see brssl.h */
 unsigned char *
@@ -100,6 +102,7 @@ write_file(const char *fname, const void *data, size_t len)
         }
         buf += wlen;
         len -= wlen;
+        vTaskDelay(10);
     }
     if (SYS_FS_FileError(f))
     {
@@ -318,6 +321,29 @@ read_certificates(const char *fname, size_t *num)
     xcs = VEC_TOARRAY(cert_list);
     VEC_CLEAR(cert_list);
     return xcs;
+}
+
+uint32_t read_certificate_not_after(const char *fname)
+{    
+    uint32_t expirationTime = 0;
+    size_t count;
+    //Read the certificate
+    br_x509_certificate *xc = read_certificates(fname, &count);
+    
+    br_x509_decoder_context dc;
+    int err;
+
+    br_x509_decoder_init(&dc, 0, 0);
+    br_x509_decoder_push(&dc, xc->data, xc->data_len);
+    err = br_x509_decoder_last_error(&dc);
+    if (err != 0) 
+    {
+        SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "certificate decoding failed with error %d", -err);
+        return 0;
+    }
+    expirationTime = dc.notafter_days;    
+
+    return expirationTime;
 }
 
 /* see brssl.h */
