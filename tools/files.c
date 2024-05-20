@@ -325,7 +325,6 @@ read_certificates(const char *fname, size_t *num)
 
 uint32_t read_certificate_not_after(const char *fname)
 {    
-    uint32_t expirationTime = 0;
     size_t count;
     //Read the certificate
     br_x509_certificate *xc = read_certificates(fname, &count);
@@ -341,9 +340,27 @@ uint32_t read_certificate_not_after(const char *fname)
         SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "certificate decoding failed with error %d", -err);
         return 0;
     }
-    expirationTime = dc.notafter_days;    
+    return dc.notafter_days;    
+}
 
-    return expirationTime;
+uint32_t read_certificate_not_before(const char *fname)
+{    
+    size_t count;
+    //Read the certificate
+    br_x509_certificate *xc = read_certificates(fname, &count);
+    
+    br_x509_decoder_context dc;
+    int err;
+
+    br_x509_decoder_init(&dc, 0, 0);
+    br_x509_decoder_push(&dc, xc->data, xc->data_len);
+    err = br_x509_decoder_last_error(&dc);
+    if (err != 0) 
+    {
+        SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "certificate decoding failed with error %d", -err);
+        return 0;
+    }
+    return dc.notbefore_days;    
 }
 
 /* see brssl.h */
