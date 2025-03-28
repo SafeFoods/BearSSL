@@ -329,6 +329,12 @@ uint32_t read_certificate_not_after(const char *fname)
     //Read the certificate
     br_x509_certificate *xc = read_certificates(fname, &count);
     
+    if(xc == NULL)
+    {
+        SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "Error reading certificate");
+        return 0;
+    }
+    
     br_x509_decoder_context dc;
     int err;
 
@@ -348,6 +354,12 @@ uint32_t read_certificate_not_before(const char *fname)
     size_t count;
     //Read the certificate
     br_x509_certificate *xc = read_certificates(fname, &count);
+    
+    if(xc == NULL)
+    {
+        SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "Error reading certificate");
+        return 0;
+    }
     
     br_x509_decoder_context dc;
     int err;
