@@ -341,6 +341,9 @@ uint32_t read_certificate_not_after(const char *fname)
     br_x509_decoder_init(&dc, 0, 0);
     br_x509_decoder_push(&dc, xc->data, xc->data_len);
     err = br_x509_decoder_last_error(&dc);
+    
+    free_certificates(xc, count);//Free certificates to avoid memory leak
+    
     if (err != 0) 
     {
         SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "certificate decoding failed with error %d", -err);
@@ -367,6 +370,9 @@ uint32_t read_certificate_not_before(const char *fname)
     br_x509_decoder_init(&dc, 0, 0);
     br_x509_decoder_push(&dc, xc->data, xc->data_len);
     err = br_x509_decoder_last_error(&dc);
+    
+    free_certificates(xc, count);//Free certificates to avoid memory leak
+    
     if (err != 0) 
     {
         SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "certificate decoding failed with error %d", -err);
