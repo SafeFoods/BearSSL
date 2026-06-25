@@ -32,13 +32,13 @@
 #include "system/fs/sys_fs.h"
 #include "FreeRTOS.h"
 #include "task.h"
+#include "drivers/crypto.h"
 
 /* see brssl.h */
 unsigned char *
 read_file(const char *fname, size_t *len)
 {
     bvector vbuf = VEC_INIT;
-
     *len = 0;
     char path[50];
     snprintf(path, sizeof (path), "/mnt/myDrive1/%s", fname);
@@ -48,29 +48,60 @@ read_file(const char *fname, size_t *len)
         SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "Could not open file '%s' for reading", fname);
         return NULL;
     }
+
+    uint8_t key[32];
+    uint8_t iv[16];
+    bool encrypted = gInfo.CryptoChip.populated;
+    if (encrypted)
+    {
+        memcpy(key, gInfo.CryptoChip.EncryptionKey, sizeof (key));
+        /* IV is the first 16 bytes of the file, same as LoginFromFile. */
+        if (SYS_FS_FileRead(f, iv, sizeof (iv)) != sizeof (iv))
+        {
+            SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "Could not read IV from file '%s'", fname);
+            SYS_FS_FileClose(f);
+            return NULL;
+        }
+        HWCryptoStart();
+    }
+
     for (;;)
     {
         unsigned char tmp[1024];
         size_t rlen;
-
         rlen = SYS_FS_FileRead(f, (void *)tmp, sizeof (tmp));
         if (rlen == 0)
         {
             unsigned char *buf;
-
             if (SYS_FS_FileError(f))
             {
                 SYS_DEBUG_PRINT(SYS_ERROR_ERROR, "BearSSL", "Read error on file '%s'", fname);
+                if (encrypted) 
+                    HWCryptoFinish();
                 SYS_FS_FileClose(f);
                 return NULL;
             }
             buf = VEC_TOARRAY(vbuf);
             *len = VEC_LEN(vbuf);
             VEC_CLEAR(vbuf);
+            if (encrypted) 
+                HWCryptoFinish();
             SYS_FS_FileClose(f);
             return buf;
         }
-        VEC_ADDMANY(vbuf, tmp, rlen);
+        if (encrypted)
+        {
+            unsigned char dec[1024];
+            /* AES-CTR uses the encrypt primitive for decryption too,
+               so HWCRYPTO_ENC is correct, matching LoginFromFile. */
+            HWCryptoUpdate((uint8_t *)tmp, rlen, key, iv, (uint8_t *)dec,
+                HWCRYPTO_ENC, HWCRYPTO_ALGO_AES_CTR, HWCRYPTO_KEYSIZE_256);
+            VEC_ADDMANY(vbuf, dec, rlen);
+        }
+        else
+        {
+            VEC_ADDMANY(vbuf, tmp, rlen);
+        }
     }
 }
 
